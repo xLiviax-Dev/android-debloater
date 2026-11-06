@@ -1,6 +1,6 @@
 # Android Debloater
 
-A Windows desktop app (Linux and macOS are planned) that helps you clean up an
+A Windows desktop app that helps you clean up an
 Android device over ADB, **without root**. It lists the installed apps and
 helps you remove or disable unwanted preinstalled software (bloatware) in a
 way that is transparent and reversible.
@@ -29,11 +29,10 @@ Windows may show a warning on the first start.
 - Detect ADB automatically; download it with one click if it is missing
 - Light and dark mode
 
-Linux and macOS are planned.
 
 ## Requirements
 
-- Windows 10 / 11 (64-bit); Linux/macOS planned
+- Windows 10 / 11 (64-bit);
 - An Android device with USB debugging enabled
 - ADB (the app downloads it for you)
 
