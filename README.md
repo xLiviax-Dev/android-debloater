@@ -1,4 +1,5 @@
-<img width="748" height="662" alt="image" src="https://github.com/user-attachments/assets/cf380f35-80ea-4bc4-8cf2-0473fc56c15f" />
+<img width="1495" height="1324" alt="Unbenannt" src="https://github.com/user-attachments/assets/09294857-e030-4798-8666-6e1ab78429a0" />
+
 
 
 # Android Debloater
