@@ -1,3 +1,6 @@
+<img width="748" height="662" alt="image" src="https://github.com/user-attachments/assets/cf380f35-80ea-4bc4-8cf2-0473fc56c15f" />
+
+
 # Android Debloater
 
 A Windows desktop app that helps you clean up an
