@@ -1,0 +1,212 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AndroidDebloater.App.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="560" d:DesignHeight="760"
+        x:Class="AndroidDebloater.App.Views.SettingsWindow"
+        x:DataType="vm:SettingsViewModel"
+        Width="560" Height="760"
+        MinWidth="480" MinHeight="520"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Title}">
+
+    <Design.DataContext>
+        <!-- DataContext for the designer only; the runtime DataContext is set when the dialog opens. -->
+        <vm:SettingsViewModel />
+    </Design.DataContext>
+
+    <DockPanel Margin="16">
+
+        <!-- Kopfzeile -->
+        <TextBlock DockPanel.Dock="Top"
+                   Text="{Binding Title}"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,12" />
+
+        <!-- Fußzeile: Status + Aktionen -->
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <StackPanel DockPanel.Dock="Right"
+                        Orientation="Horizontal"
+                        Spacing="8"
+                        HorizontalAlignment="Right">
+                <Button Content="{Binding CloseButton}" Click="OnCloseClick" />
+                <Button Content="{Binding SaveButton}"
+                        Command="{Binding SaveCommand}"
+                        Classes="accent" />
+            </StackPanel>
+            <TextBlock Text="{Binding Status}"
+                       VerticalAlignment="Center"
+                       FontSize="12"
+                       Opacity="0.7"
+                       TextWrapping="Wrap" />
+        </DockPanel>
+
+        <ScrollViewer>
+            <StackPanel Spacing="16">
+
+                <!-- Sprache (Auswahl vorbereitet) -->
+                <Border Classes="card"
+                        Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding LanguageLabel}" FontWeight="SemiBold" />
+                        <ComboBox ItemsSource="{Binding LanguageOptions}"
+                                  SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="vm:LanguageOption">
+                                    <TextBlock Text="{Binding DisplayName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="{Binding LanguageHint}"
+                                   FontSize="12"
+                                   Opacity="0.7"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Whitelist (P2-5) -->
+                <Border Classes="card"
+                        Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding WhitelistLabel}" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding WhitelistHint}"
+                                   FontSize="12"
+                                   Opacity="0.7"
+                                   TextWrapping="Wrap" />
+                        <ListBox ItemsSource="{Binding WhitelistEntries}"
+                                 SelectedItem="{Binding SelectedWhitelistEntry, Mode=TwoWay}"
+                                 Height="150"
+                                 FontFamily="Consolas,monospace" />
+                        <TextBlock Text="{Binding WhitelistEmptyNote}"
+                                   IsVisible="{Binding !HasWhitelistEntries}"
+                                   FontSize="12"
+                                   Opacity="0.6"
+                                   TextWrapping="Wrap" />
+                        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                            <TextBox Text="{Binding NewWhitelistEntry, Mode=TwoWay}"
+                                     PlaceholderText="{Binding WhitelistPlaceholder}"
+                                     FontFamily="Consolas,monospace" />
+                            <Button Grid.Column="1"
+                                    Content="{Binding AddWhitelistButton}"
+                                    Command="{Binding AddWhitelistEntryCommand}" />
+                            <Button Grid.Column="2"
+                                    Content="{Binding RemoveWhitelistButton}"
+                                    Command="{Binding RemoveWhitelistEntryCommand}" />
+                        </Grid>
+                        <Button Content="{Binding ResetWhitelistButton}"
+                                Command="{Binding RestoreDefaultWhitelistCommand}"
+                                HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Border>
+
+                <!-- ADB-Pfad -->
+                <Border Classes="card"
+                        Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding AdbPathLabel}" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding AdbPathHint}"
+                                   FontSize="12"
+                                   Opacity="0.7"
+                                   TextWrapping="Wrap" />
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                            <TextBox Text="{Binding AdbPath, Mode=TwoWay}"
+                                     FontFamily="Consolas,monospace" />
+                            <Button Grid.Column="1"
+                                    Content="{Binding AdbPathAutomaticButton}"
+                                    Command="{Binding ResetAdbPathCommand}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Icon-Cache -->
+                <Border Classes="card"
+                        Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding IconCacheLabel}" FontWeight="SemiBold" />
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right"
+                                    Content="{Binding ClearIconCacheButton}"
+                                    Command="{Binding ClearIconCacheCommand}" />
+                            <TextBlock Text="{Binding IconCacheUsageText}"
+                                       VerticalAlignment="Center"
+                                       Opacity="0.8" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Spiele-Liste (getrennt vom Icon-Cache) -->
+                <Border Classes="card"
+                        Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding GameListLabel}" FontWeight="SemiBold" />
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right"
+                                    Content="{Binding ClearGameListButton}"
+                                    Command="{Binding ClearGameListCommand}" />
+                            <TextBlock Text="{Binding GameListUsageText}"
+                                       VerticalAlignment="Center"
+                                       Opacity="0.8" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Experten-Mode (S-20): Warnung + ZWEI getrennte Bestätigungen -->
+                <Border Padding="16"
+                        CornerRadius="14"
+                        Background="#14B45309"
+                        BorderBrush="#66B45309"
+                        BorderThickness="1">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding ExpertLabel}" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding ExpertStateText}" TextWrapping="Wrap" />
+
+                        <!-- Aus: Warnung anfordern -->
+                        <Button Content="{Binding ExpertOpenButton}"
+                                Command="{Binding OpenExpertSetupCommand}"
+                                IsVisible="{Binding CanShowExpertOpen}"
+                                HorizontalAlignment="Left" />
+
+                        <!-- Erste Bestätigung -->
+                        <StackPanel Spacing="8" IsVisible="{Binding IsExpertStep1Visible}">
+                            <TextBlock Text="{Binding ExpertStep1Text}"
+                                       Foreground="#B45309"
+                                       TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="{Binding ExpertContinueButton}"
+                                        Command="{Binding ContinueExpertSetupCommand}"
+                                        Classes="accent" />
+                                <Button Content="{Binding CancelButton}"
+                                        Command="{Binding CancelExpertSetupCommand}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Zweite, getrennte Bestätigung -->
+                        <StackPanel Spacing="8" IsVisible="{Binding IsExpertStep2Visible}">
+                            <TextBlock Text="{Binding ExpertStep2Text}"
+                                       Foreground="#B45309"
+                                       TextWrapping="Wrap" />
+                            <CheckBox Content="{Binding ExpertAckText}"
+                                      IsChecked="{Binding ExpertAck, Mode=TwoWay}" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="{Binding ExpertEnableButton}"
+                                        Command="{Binding EnableExpertModeCommand}"
+                                        Classes="accent" />
+                                <Button Content="{Binding CancelButton}"
+                                        Command="{Binding CancelExpertSetupCommand}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Ein: sofort ausschaltbar (stellt die harte Sperre wieder her) -->
+                        <Button Content="{Binding ExpertDisableButton}"
+                                Command="{Binding DisableExpertModeCommand}"
+                                IsVisible="{Binding IsExpertModeOn}"
+                                HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Version bewusst gleich wie die von Avalonia 12.1.4 mitgebrachte SkiaSharp
+         (3.119.4), damit es keinen Versionskonflikt gibt (live geprueft). -->
+    <PackageReference Include="SkiaSharp" Version="3.119.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Die internen APK-/ARSC-Parser sollen direkt testbar sein. -->
+    <InternalsVisibleTo Include="AndroidDebloater.Tests" />
+  </ItemGroup>
+
+</Project>

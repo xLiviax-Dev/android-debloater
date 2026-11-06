@@ -1,0 +1,87 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AndroidDebloater.App.ViewModels"
+        xmlns:md="https://github.com/whistyun/Markdown.Avalonia.Tight"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="860" d:DesignHeight="720"
+        x:Class="AndroidDebloater.App.Views.HelpWindow"
+        x:DataType="vm:HelpViewModel"
+        Width="860" Height="720"
+        MinWidth="620" MinHeight="460"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Title}">
+
+    <Design.DataContext>
+        <!-- DataContext for the designer only; the runtime DataContext is set when the dialog opens. -->
+        <vm:HelpViewModel />
+    </Design.DataContext>
+
+    <DockPanel Margin="16">
+
+        <!-- Kopfzeile -->
+        <TextBlock DockPanel.Dock="Top"
+                   Text="{Binding Title}"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,12" />
+
+        <!-- Fußzeile -->
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <Button DockPanel.Dock="Right"
+                    Content="{Binding CloseButton}"
+                    Click="OnCloseClick"
+                    HorizontalAlignment="Right" />
+        </DockPanel>
+
+        <!-- Navigation links, Inhalt rechts -->
+        <Grid ColumnDefinitions="200,*" ColumnSpacing="16">
+
+            <ListBox Grid.Column="0"
+                     SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+                <ListBoxItem Content="{Binding UserGuideTab}" />
+                <ListBoxItem Content="{Binding AboutTab}" />
+            </ListBox>
+
+            <Border Grid.Column="1"
+                    Classes="card">
+                <!-- Beide Ansichten liegen im selben Grid und werden umgeschaltet. -->
+                <Grid>
+
+                    <!-- Anleitung: aus der gebuendelten USER-GUIDE.md (offline, G-14). -->
+                    <md:MarkdownScrollViewer Source="avares://AndroidDebloater.App/Assets/USER-GUIDE.md"
+                                             IsVisible="{Binding IsUserGuideVisible}" />
+
+                    <!-- About (G-13): Version, Drittlizenzen, Disclaimer. -->
+                    <ScrollViewer IsVisible="{Binding IsAboutVisible}">
+                        <StackPanel Margin="16" Spacing="12">
+                            <TextBlock Text="{Binding AboutName}"
+                                       FontSize="20"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding AboutVersionText}"
+                                       Opacity="0.8" />
+                            <TextBlock Text="{Binding AboutLicenseText}"
+                                       Opacity="0.8" />
+
+                            <StackPanel Spacing="4" Margin="0,8,0,0">
+                                <TextBlock Text="{Binding AboutComponentsLabel}"
+                                           FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding AboutComponentsBody}"
+                                           Opacity="0.8"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding AboutDisclaimerText}"
+                                       Margin="0,8,0,0"
+                                       Opacity="0.8"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding AboutWarningText}"
+                                       Foreground="#B45309"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

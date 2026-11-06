@@ -1,0 +1,203 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AndroidDebloater.App.App"
+             xmlns:local="using:AndroidDebloater.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options.
+                  Das gespeicherte Schema setzt ThemeHelper beim Start (Einstellung Theme). -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <!-- Helles Schema: ruhige Flaeche, weisse Karten, ein blauer Akzent. -->
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="SystemAccentColor">#2F5BEA</Color>
+                    <Color x:Key="SystemAccentColorLight1">#4A72F0</Color>
+                    <Color x:Key="SystemAccentColorLight2">#6A8AF3</Color>
+                    <Color x:Key="SystemAccentColorLight3">#8DA6F6</Color>
+                    <Color x:Key="SystemAccentColorDark1">#2549C2</Color>
+                    <Color x:Key="SystemAccentColorDark2">#1D3A9E</Color>
+                    <Color x:Key="SystemAccentColorDark3">#162C7B</Color>
+                    <SolidColorBrush x:Key="AppBackgroundBrush" Color="#EEF0F4" />
+                    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="CardBorderBrush" Color="#DFE3EA" />
+                    <SolidColorBrush x:Key="MutedTextBrush" Color="#5B6472" />
+                    <SolidColorBrush x:Key="SafeBgBrush" Color="#E3F4EA" />
+                    <SolidColorBrush x:Key="SafeFgBrush" Color="#14683B" />
+                    <SolidColorBrush x:Key="CautionBgBrush" Color="#FDF0D9" />
+                    <SolidColorBrush x:Key="CautionFgBrush" Color="#8A4B00" />
+                    <SolidColorBrush x:Key="CritBgBrush" Color="#FCE4E2" />
+                    <SolidColorBrush x:Key="CritFgBrush" Color="#A3201B" />
+                    <SolidColorBrush x:Key="PillOnBrush" Color="#171A21" />
+                    <SolidColorBrush x:Key="PillOnTextBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="TrackBrush" Color="#E2E6ED" />
+                    <SolidColorBrush x:Key="TabOnBrush" Color="#E4EAFB" />
+                    <SolidColorBrush x:Key="TabOnBorderBrush" Color="#B9C8F2" />
+                </ResourceDictionary>
+
+                <!-- Dunkles Schema: Anthrazit, Akzent leicht aufgehellt. -->
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="SystemAccentColor">#7A9BFF</Color>
+                    <Color x:Key="SystemAccentColorLight1">#94B0FF</Color>
+                    <Color x:Key="SystemAccentColorLight2">#AEC4FF</Color>
+                    <Color x:Key="SystemAccentColorLight3">#C8D8FF</Color>
+                    <Color x:Key="SystemAccentColorDark1">#5F82F2</Color>
+                    <Color x:Key="SystemAccentColorDark2">#4A6BD6</Color>
+                    <Color x:Key="SystemAccentColorDark3">#3856B3</Color>
+                    <SolidColorBrush x:Key="AppBackgroundBrush" Color="#0F1218" />
+                    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#171B23" />
+                    <SolidColorBrush x:Key="CardBorderBrush" Color="#262C38" />
+                    <SolidColorBrush x:Key="MutedTextBrush" Color="#9AA3B2" />
+                    <SolidColorBrush x:Key="SafeBgBrush" Color="#17362A" />
+                    <SolidColorBrush x:Key="SafeFgBrush" Color="#6FD6A0" />
+                    <SolidColorBrush x:Key="CautionBgBrush" Color="#3A2D12" />
+                    <SolidColorBrush x:Key="CautionFgBrush" Color="#F2C26B" />
+                    <SolidColorBrush x:Key="CritBgBrush" Color="#3E1D1B" />
+                    <SolidColorBrush x:Key="CritFgBrush" Color="#FF9C95" />
+                    <SolidColorBrush x:Key="PillOnBrush" Color="#E8EBF2" />
+                    <SolidColorBrush x:Key="PillOnTextBrush" Color="#0F1218" />
+                    <SolidColorBrush x:Key="TrackBrush" Color="#1D222C" />
+                    <SolidColorBrush x:Key="TabOnBrush" Color="#2B3240" />
+                    <SolidColorBrush x:Key="TabOnBorderBrush" Color="#3A4354" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <!-- Fenster-Hintergrund -->
+        <Style Selector="Window">
+            <Setter Property="Background" Value="{DynamicResource AppBackgroundBrush}" />
+        </Style>
+
+        <!-- Karte: weisse (bzw. dunkle) Flaeche mit feinem Rand und grossen Rundungen. -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="14" />
+        </Style>
+
+        <!-- Kopf- und Fussleiste: Karten-Flaeche, nur feine Trennlinie. -->
+        <Style Selector="Border.bar">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}" />
+        </Style>
+
+        <!-- Gedaempfter Text -->
+        <Style Selector="TextBlock.muted">
+            <Setter Property="Foreground" Value="{DynamicResource MutedTextBrush}" />
+        </Style>
+
+        <!-- Weichere Bedienelemente -->
+        <Style Selector="Button">
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="14,7" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="MinHeight" Value="38" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Margin" Value="0,0,4,0" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="CornerRadius" Value="9" />
+            <Setter Property="MinHeight" Value="0" />
+        </Style>
+        <Style Selector="TabItem /template/ Border#PART_SelectedPipe">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="TabItem:selected /template/ Border#PART_LayoutRoot">
+            <Setter Property="Background" Value="{DynamicResource TabOnBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TabOnBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="9" />
+        </Style>
+
+        <!-- Farbige Pille (Safety) -->
+        <Style Selector="Border.pill">
+            <Setter Property="Padding" Value="10,3" />
+            <Setter Property="CornerRadius" Value="999" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Border.pill TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Border.pill.safe">
+            <Setter Property="Background" Value="{DynamicResource SafeBgBrush}" />
+        </Style>
+        <Style Selector="Border.pill.safe TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource SafeFgBrush}" />
+        </Style>
+        <Style Selector="Border.pill.caution">
+            <Setter Property="Background" Value="{DynamicResource CautionBgBrush}" />
+        </Style>
+        <Style Selector="Border.pill.caution TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource CautionFgBrush}" />
+        </Style>
+        <Style Selector="Border.pill.crit">
+            <Setter Property="Background" Value="{DynamicResource CritBgBrush}" />
+        </Style>
+        <Style Selector="Border.pill.crit TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource CritFgBrush}" />
+        </Style>
+
+        <!-- Status-Chip im Kopf -->
+        <Style Selector="Border.chip">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="999" />
+            <Setter Property="Padding" Value="12,6" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Border.chip TextBlock">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <!-- Duenner Bloat-Balken -->
+        <Style Selector="ProgressBar.bloat">
+            <Setter Property="Height" Value="6" />
+            <Setter Property="MinHeight" Value="6" />
+            <Setter Property="MinWidth" Value="56" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Background" Value="{DynamicResource TrackBrush}" />
+        </Style>
+
+        <!-- Filter als Pillen-Leiste -->
+        <Style Selector="ListBox.pills">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style Selector="ListBox.pills ListBoxItem">
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Padding" Value="12,6" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+        <Style Selector="ListBox.pills ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource PillOnBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource PillOnTextBrush}" />
+        </Style>
+        <Style Selector="ListBox.pills ListBoxItem:selected:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource PillOnBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource PillOnTextBrush}" />
+        </Style>
+    </Application.Styles>
+</Application>

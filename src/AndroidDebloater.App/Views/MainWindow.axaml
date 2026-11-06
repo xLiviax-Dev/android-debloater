@@ -1,0 +1,475 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AndroidDebloater.App.ViewModels"
+        xmlns:models="using:AndroidDebloater.Core.Models"
+        xmlns:views="using:AndroidDebloater.App.Views"
+        xmlns:loc="using:AndroidDebloater.Core.Localization"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="860"
+        x:Class="AndroidDebloater.App.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Width="1000" Height="860"
+        MinWidth="860" MinHeight="640"
+        Title="{Binding Title}">
+
+    <Design.DataContext>
+        <!-- DataContext for the designer only; the runtime DataContext is set in App.axaml.cs. -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <!-- TabControl soll den gesamten verfuegbaren Raum fuellen. -->
+        <Style Selector="TabControl">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+        </Style>
+    </Window.Styles>
+
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top"
+                Classes="bar"
+                Padding="24,14"
+                BorderThickness="0,0,0,1">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            Spacing="8"
+                            HorizontalAlignment="Right">
+                    <!-- Hell/Dunkel-Umschalter: das Symbol erbt die Vordergrundfarbe (Theme-konform). -->
+                    <Button Command="{Binding ToggleThemeCommand}"
+                            ToolTip.Tip="{Binding ThemeToggleTip}"
+                            Padding="6,4">
+                        <Path Width="16"
+                              Height="16"
+                              Stretch="Uniform"
+                              Fill="{Binding $parent[Button].Foreground}"
+                              Data="F0 M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+                    </Button>
+                    <!-- Info-Knopf (M11): oeffnet die Anleitung + About. Das Symbol
+                         erbt die Vordergrundfarbe des Knopfes (Theme-konform). -->
+                    <Button Command="{Binding OpenHelpCommand}"
+                            ToolTip.Tip="{Binding HelpButton}"
+                            Padding="6,4">
+                        <Path Width="16"
+                              Height="16"
+                              Stretch="Uniform"
+                              Fill="{Binding $parent[Button].Foreground}"
+                              Data="F0 M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                    </Button>
+                    <Button Content="{Binding SettingsButton}"
+                            Command="{Binding OpenSettingsCommand}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <Border Width="38" Height="38" CornerRadius="11"
+                            Background="{DynamicResource PillOnBrush}">
+                        <Path Width="20" Height="20" Stretch="Uniform"
+                              Stroke="{DynamicResource PillOnTextBrush}"
+                              StrokeThickness="2"
+                              StrokeLineCap="Round"
+                              StrokeJoin="Round"
+                              Data="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" />
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Title}"
+                                   FontSize="18"
+                                   FontWeight="Bold" />
+                        <TextBlock Text="{Binding AppSubtitle}"
+                                   Classes="muted"
+                                   FontSize="12" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="16,0,0,0">
+                        <Border Classes="chip" IsVisible="{Binding IsAdbFound}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Ellipse Width="8" Height="8" Fill="#1E9B5A" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding ChipAdbReady}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Classes="chip" IsVisible="{Binding IsAdbMissing}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Ellipse Width="8" Height="8" Fill="#D98A00" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding ChipAdbMissing}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Classes="chip" IsVisible="{Binding HasDeviceInfo}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Ellipse Width="8" Height="8" Fill="#1E9B5A" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding DeviceModelText}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Classes="chip" IsVisible="{Binding !HasOnlineDevice}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Ellipse Width="8" Height="8" Fill="#8A92A0" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding ChipNoDevice}" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Experten-Mode-Warnbanner (S-20b): sichtbar, solange er aktiv ist. -->
+        <Border DockPanel.Dock="Top"
+                Padding="12,8"
+                Background="#33B45309"
+                BorderBrush="#66B45309"
+                BorderThickness="0,0,0,1"
+                IsVisible="{Binding IsExpertModeActive}">
+            <TextBlock Text="{Binding ExpertModeBannerText}"
+                       Foreground="#7C2D12"
+                       FontSize="12"
+                       TextWrapping="Wrap" />
+        </Border>
+
+        <!-- Status bar -->
+        <Border DockPanel.Dock="Bottom"
+                Classes="bar"
+                Padding="24,8"
+                BorderThickness="0,1,0,0">
+            <TextBlock Text="{Binding Status}"
+                       FontSize="12"
+                       Opacity="0.7"
+                       TextWrapping="Wrap" />
+        </Border>
+
+        <!-- Setup-Karten oben (Auto), Paketliste bekommt den gesamten Rest (*). -->
+        <Grid Margin="16" RowDefinitions="Auto,*">
+
+            <!-- ADB status / setup assistant / progress / confirmation -->
+            <StackPanel Grid.Row="0" Spacing="16">
+
+                <!-- ADB- und Geraete-Karte nebeneinander, damit die Paketliste mehr Hoehe erhaelt. -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+
+                    <!-- ADB card -->
+                    <Border Grid.Column="0"
+                            Classes="card"
+                            Padding="20">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="{Binding AdbCardTitle}"
+                                       FontSize="16"
+                                       FontWeight="SemiBold" />
+
+                            <!-- ADB found -->
+                            <StackPanel Spacing="4" IsVisible="{Binding IsAdbFound}">
+                                <TextBlock Text="{Binding AdbVersionText}"
+                                           FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding AdbPathText}"
+                                           TextWrapping="Wrap"
+                                           Opacity="0.8" />
+                                <TextBlock Text="{Binding AdbSourceText}"
+                                           Opacity="0.8" />
+                            </StackPanel>
+
+                            <!-- ADB missing: setup assistant -->
+                            <TextBlock Text="{Binding AdbAssistantBody}"
+                                       IsVisible="{Binding IsAdbMissing}"
+                                       TextWrapping="Wrap"
+                                       Opacity="0.8" />
+
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Classes="accent" Content="{Binding AdbCheckButton}"
+                                        Command="{Binding CheckAdbCommand}" />
+                                <Button Content="{Binding AdbDownloadButton}"
+                                        Command="{Binding StartDownloadCommand}"
+                                        IsVisible="{Binding IsAdbMissing}"
+                                        Classes="accent" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Device card -->
+                    <Border Grid.Column="1"
+                            Classes="card"
+                            Padding="20">
+                        <StackPanel Spacing="10">
+                            <DockPanel>
+                                <TextBlock Text="{Binding DeviceCardTitle}"
+                                           DockPanel.Dock="Left"
+                                           FontSize="16"
+                                           FontWeight="SemiBold" />
+                                <Button Classes="accent" Content="{Binding DeviceRefreshButton}"
+                                        Command="{Binding CheckAdbCommand}"
+                                        DockPanel.Dock="Right"
+                                        HorizontalAlignment="Right" />
+                            </DockPanel>
+
+                            <ComboBox ItemsSource="{Binding Devices}"
+                                      SelectedItem="{Binding SelectedDevice}"
+                                      IsVisible="{Binding IsAdbFound}"
+                                      HorizontalAlignment="Stretch">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:AdbDevice">
+                                        <TextBlock Text="{Binding DisplayName}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <TextBlock Text="{Binding DeviceNoneConnected}"
+                                       IsVisible="{Binding !HasOnlineDevice}"
+                                       TextWrapping="Wrap"
+                                       Opacity="0.8" />
+
+                            <StackPanel Spacing="2" IsVisible="{Binding HasDeviceInfo}">
+                                <TextBlock Text="{Binding DeviceModelText}" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding DeviceAndroidText}" Opacity="0.8" />
+                                <TextBlock Text="{Binding DeviceSerialText}" Opacity="0.8" />
+                                <TextBlock Text="{Binding DeviceBuildText}" Opacity="0.8" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Progress -->
+                <Border Classes="card"
+                        Padding="20"
+                        IsVisible="{Binding IsBusy}">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="{Binding Status}"
+                                   TextWrapping="Wrap" />
+                        <ProgressBar Minimum="0"
+                                     Maximum="1"
+                                     Value="{Binding ProgressValue}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Confirmation before download -->
+                <Border Classes="card"
+                        Padding="20"
+                        IsVisible="{Binding IsConfirmVisible}">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="{Binding ConfirmTitle}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding ConfirmBody}"
+                                   FontFamily="Consolas,monospace"
+                                   FontSize="12"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding ConfirmNote}"
+                                   TextWrapping="Wrap"
+                                   Opacity="0.7" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Content="{Binding ConfirmYes}"
+                                    Command="{Binding ConfirmInstallCommand}"
+                                    Classes="accent" />
+                            <Button Content="{Binding ConfirmCancel}"
+                                    Command="{Binding CancelConfirmCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Confirmation before a package action (dry run, S-08) -->
+                <Border Classes="card"
+                        Padding="20"
+                        IsVisible="{Binding IsActionConfirmVisible}">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="{Binding ActionConfirmTitle}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding ActionConfirmDevice}"
+                                   FontWeight="SemiBold"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding ActionConfirmBody}"
+                                   FontFamily="Consolas,monospace"
+                                   FontSize="12"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding ActionConfirmWarnings}"
+                                   IsVisible="{Binding HasActionConfirmWarnings}"
+                                   Foreground="#B45309"
+                                   TextWrapping="Wrap" />
+                        <StackPanel Spacing="4" IsVisible="{Binding ActionConfirmRequiresTyping}">
+                            <TextBlock Text="{Binding ActionConfirmTypeLabel}" />
+                            <TextBox Text="{Binding ActionConfirmTypedName, Mode=TwoWay}"
+                                     PlaceholderText="{Binding ActionConfirmTypePlaceholder}"
+                                     FontFamily="Consolas,monospace" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding ActionConfirmNote}"
+                                   TextWrapping="Wrap"
+                                   Opacity="0.7" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Content="{Binding ActionConfirmYes}"
+                                    Command="{Binding ConfirmActionCommand}"
+                                    Classes="accent" />
+                            <Button Content="{Binding ActionConfirmCancel}"
+                                    Command="{Binding CancelActionCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Packages -->
+            <Border Grid.Row="1"
+                    Classes="card"
+                    Margin="0,16,0,0"
+                    Padding="20">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
+
+                    <!-- Kopfzeile -->
+                    <DockPanel Grid.Row="0" Margin="0,0,0,10">
+                        <TextBlock Text="{Binding PackageCardTitle}"
+                                   DockPanel.Dock="Left"
+                                   FontSize="16"
+                                   FontWeight="SemiBold" />
+                        <StackPanel DockPanel.Dock="Right"
+                                    Orientation="Horizontal"
+                                    Spacing="8"
+                                    HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding PackageCountText}"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Opacity="0.7" />
+                            <Button Content="{Binding ExportButton}">
+                                <Button.Flyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="{Binding ExportCsvOption}"
+                                                  Command="{Binding ExportCommand}"
+                                                  CommandParameter="{x:Static models:ExportFormat.Csv}" />
+                                        <MenuItem Header="{Binding ExportMarkdownOption}"
+                                                  Command="{Binding ExportCommand}"
+                                                  CommandParameter="{x:Static models:ExportFormat.Markdown}" />
+                                        <MenuItem Header="{Binding ExportHtmlOption}"
+                                                  Command="{Binding ExportCommand}"
+                                                  CommandParameter="{x:Static models:ExportFormat.Html}" />
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
+                            <Button Content="{Binding RollbackLogButton}"
+                                    Command="{Binding ToggleRollbackLogCommand}" />
+                            <Button Content="{Binding RollbackOpenFolderButton}"
+                                    Command="{Binding OpenRollbackFolderCommand}" />
+                            <Button Classes="accent" Content="{Binding PackageReloadButton}"
+                                    Command="{Binding ScanPackagesCommand}" />
+                        </StackPanel>
+                    </DockPanel>
+
+                    <!-- Ein-Klick-Rollback (S-06) + Rettungs-Datei (S-05), nur bei gesicherten Aenderungen. -->
+                    <Border Grid.Row="1"
+                            Margin="0,0,0,10"
+                            Padding="10"
+                            CornerRadius="6"
+                            BorderBrush="#66000000"
+                            BorderThickness="1"
+                            IsVisible="{Binding HasRollbackEntries}">
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Right"
+                                        Orientation="Horizontal"
+                                        Spacing="8"
+                                        HorizontalAlignment="Right">
+                                <Button Content="{Binding RollbackRescueButton}"
+                                        Command="{Binding SaveRescueFileCommand}" />
+                                <Button Content="{Binding RollbackButton}"
+                                        Command="{Binding RollbackAllCommand}"
+                                        Classes="accent" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding RollbackSummaryText}"
+                                       VerticalAlignment="Center"
+                                       FontWeight="SemiBold" />
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Protokoll-Ansicht (S-14): Rohinhalt der Protokolldatei. -->
+                    <Border Grid.Row="2"
+                            Margin="0,0,0,10"
+                            Padding="10"
+                            CornerRadius="6"
+                            BorderBrush="#33000000"
+                            BorderThickness="1"
+                            IsVisible="{Binding IsRollbackLogVisible}">
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{Binding RollbackLogTitle}"
+                                       FontWeight="SemiBold" />
+                            <TextBox Text="{Binding RollbackLogText}"
+                                     IsReadOnly="True"
+                                     AcceptsReturn="True"
+                                     TextWrapping="NoWrap"
+                                     FontFamily="Consolas,monospace"
+                                     FontSize="12"
+                                     MaxHeight="160" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Suche + Filter -->
+                    <Grid Grid.Row="3"
+                          Margin="0,0,0,10"
+                          ColumnDefinitions="*,Auto">
+                        <TextBox Text="{Binding SearchText}"
+                                 PlaceholderText="{Binding PackageSearchPlaceholder}" />
+                        <ListBox Grid.Column="1"
+                                 Classes="pills"
+                                 Margin="12,0,0,0"
+                                 VerticalAlignment="Center"
+                                 ItemsSource="{Binding FilterOptions}"
+                                 SelectedIndex="{Binding SelectedFilterIndex, Mode=TwoWay}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                        </ListBox>
+                    </Grid>
+
+                    <!-- Kategorie-Tabs: jede Gruppe zeigt dieselbe Tabelle mit vorgefilterten Daten.
+                         Die Tabelle erhaelt den gesamten Rest der Karte (Zeile *). -->
+                    <TabControl Grid.Row="4" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="{x:Static loc:Strings.PackageTabAll}" />
+                                    <TextBlock Text="{Binding TabCountAll}" Classes="muted" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <views:PackageTableView />
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="{x:Static loc:Strings.PackageTabUser}" />
+                                    <TextBlock Text="{Binding TabCountUser}" Classes="muted" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <views:PackageTableView />
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="{x:Static loc:Strings.PackageTabSystemApp}" />
+                                    <TextBlock Text="{Binding TabCountSystemApp}" Classes="muted" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <views:PackageTableView />
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="{x:Static loc:Strings.PackageTabSystemService}" />
+                                    <TextBlock Text="{Binding TabCountSystemService}" Classes="muted" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <views:PackageTableView />
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="{x:Static loc:Strings.PackageTabDisabled}" />
+                                    <TextBlock Text="{Binding TabCountDisabled}" Classes="muted" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <views:PackageTableView />
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="{x:Static loc:Strings.PackageTabRemoved}" />
+                                    <TextBlock Text="{Binding TabCountRemoved}" Classes="muted" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <views:PackageTableView />
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

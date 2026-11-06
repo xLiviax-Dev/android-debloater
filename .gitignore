@@ -1,0 +1,32 @@
+# Build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+
+# IDE / editor
+.vs/
+.idea/
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+packages/
+
+# Portable .NET SDK (local build tooling, not part of the project)
+.dotnet/
+
+# Frozen WPF prototype (reference only, see docs/projektinfo.txt, P3-2)
+AdbAppManager/
+
+# Internal working docs (local only: contain device serial + local paths)
+docs/
+
+# Local knowledge graph (Graphify), not part of the program
+graphify-out/
+.graphifyignore
+
+# OS files
+Thumbs.db
+.DS_Store

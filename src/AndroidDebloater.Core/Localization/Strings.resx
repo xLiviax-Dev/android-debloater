@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Android Debloater</value>
+  </data>
+  <data name="ShellHint" xml:space="preserve">
+    <value>Connect an Android device over ADB to begin.</value>
+  </data>
+  <data name="StatusReady" xml:space="preserve">
+    <value>Ready.</value>
+  </data>
+  <data name="StatusChecking" xml:space="preserve">
+    <value>Checking for ADB...</value>
+  </data>
+  <data name="StatusAdbReady" xml:space="preserve">
+    <value>ADB is ready.</value>
+  </data>
+  <data name="StatusAdbReadyFormat" xml:space="preserve">
+    <value>ADB {0} is ready.</value>
+  </data>
+  <data name="StatusAdbMissing" xml:space="preserve">
+    <value>No ADB installation was found on this system.</value>
+  </data>
+  <data name="StatusAdbInstalledFormat" xml:space="preserve">
+    <value>ADB {0} installed.</value>
+  </data>
+  <data name="StatusErrorFormat" xml:space="preserve">
+    <value>Error: {0}</value>
+  </data>
+  <data name="AdbCardTitle" xml:space="preserve">
+    <value>ADB</value>
+  </data>
+  <data name="AdbVersionFormat" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="AdbPathFormat" xml:space="preserve">
+    <value>Path: {0}</value>
+  </data>
+  <data name="AdbSourceFormat" xml:space="preserve">
+    <value>Source: {0}</value>
+  </data>
+  <data name="AdbCheckButton" xml:space="preserve">
+    <value>Check again</value>
+  </data>
+  <data name="AdbDownloadButton" xml:space="preserve">
+    <value>Download ADB...</value>
+  </data>
+  <data name="AdbAssistantBody" xml:space="preserve">
+    <value>ADB (Android Debug Bridge) is required to communicate with your device. Android Debloater can download the official Platform-Tools from Google, verify the SHA-1 checksum and install them into your user profile.</value>
+  </data>
+  <data name="AdbConfirmTitle" xml:space="preserve">
+    <value>Download Android Platform-Tools?</value>
+  </data>
+  <data name="AdbConfirmVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="AdbConfirmFile" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="AdbConfirmSize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="AdbConfirmSha1" xml:space="preserve">
+    <value>SHA-1</value>
+  </data>
+  <data name="AdbConfirmTarget" xml:space="preserve">
+    <value>Installs to:</value>
+  </data>
+  <data name="AdbConfirmNote" xml:space="preserve">
+    <value>The files are downloaded from Google (dl.google.com). Google does not publish a SHA-256 checksum for this archive, so the official SHA-1 checksum from Google's SDK manifest is verified before the files are unpacked.</value>
+  </data>
+  <data name="AdbConfirmYes" xml:space="preserve">
+    <value>Download and install</value>
+  </data>
+  <data name="AdbConfirmCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AdbStageReadingManifest" xml:space="preserve">
+    <value>Reading version and checksum from Google's manifest...</value>
+  </data>
+  <data name="AdbStageDownloadingFormat" xml:space="preserve">
+    <value>Downloading {0} of {1}...</value>
+  </data>
+  <data name="AdbStageDownloadingUnknownFormat" xml:space="preserve">
+    <value>Downloading {0}...</value>
+  </data>
+  <data name="AdbStageVerifying" xml:space="preserve">
+    <value>Verifying SHA-1 checksum...</value>
+  </data>
+  <data name="AdbStageExtracting" xml:space="preserve">
+    <value>Extracting...</value>
+  </data>
+  <data name="AdbStageVerifyingInstall" xml:space="preserve">
+    <value>Verifying installation (adb --version)...</value>
+  </data>
+  <data name="AdbInstalledFormat" xml:space="preserve">
+    <value>ADB {0} installed successfully.</value>
+  </data>
+  <data name="AdbErrorFormat" xml:space="preserve">
+    <value>ADB setup failed: {0}</value>
+  </data>
+  <data name="AdbSourcePortable" xml:space="preserve">
+    <value>portable (next to the application)</value>
+  </data>
+  <data name="AdbSourceEnvironment" xml:space="preserve">
+    <value>environment variable</value>
+  </data>
+  <data name="AdbSourcePath" xml:space="preserve">
+    <value>system PATH</value>
+  </data>
+  <data name="AdbSourceCommon" xml:space="preserve">
+    <value>common SDK location</value>
+  </data>
+  <data name="AdbSourceWinget" xml:space="preserve">
+    <value>winget package</value>
+  </data>
+  <data name="AdbSourceAppManaged" xml:space="preserve">
+    <value>downloaded by Android Debloater</value>
+  </data>
+  <data name="ValueUnknown" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="KindSystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="KindUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="StatusActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="StatusDisabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="StatusHidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="StatusSuspended" xml:space="preserve">
+    <value>Suspended</value>
+  </data>
+  <data name="StatusRemoved" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="DeviceCardTitle" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="DeviceNoneConnected" xml:space="preserve">
+    <value>No device connected. Connect a device via USB and enable USB debugging.</value>
+  </data>
+  <data name="DeviceUnauthorized" xml:space="preserve">
+    <value>This device is unauthorized. Confirm the USB debugging prompt on the device.</value>
+  </data>
+  <data name="DeviceOffline" xml:space="preserve">
+    <value>This device is offline. Reconnect it and try again.</value>
+  </data>
+  <data name="DeviceRefreshButton" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="DeviceSerialFormat" xml:space="preserve">
+    <value>Serial: {0}</value>
+  </data>
+  <data name="DeviceModelFormat" xml:space="preserve">
+    <value>Model: {0}</value>
+  </data>
+  <data name="DeviceAndroidFormat" xml:space="preserve">
+    <value>Android {0} (SDK {1})</value>
+  </data>
+  <data name="DeviceAndroidNoSdkFormat" xml:space="preserve">
+    <value>Android {0}</value>
+  </data>
+  <data name="DeviceBuildFormat" xml:space="preserve">
+    <value>Build: {0}</value>
+  </data>
+  <data name="PackageCardTitle" xml:space="preserve">
+    <value>Packages</value>
+  </data>
+  <data name="PackageSearchPlaceholder" xml:space="preserve">
+    <value>Search by name or package...</value>
+  </data>
+  <data name="PackageTabAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="PackageTabUser" xml:space="preserve">
+    <value>User apps &amp; games</value>
+  </data>
+  <data name="PackageTabSystemApp" xml:space="preserve">
+    <value>System apps &amp; games</value>
+  </data>
+  <data name="PackageTabSystemService" xml:space="preserve">
+    <value>System services</value>
+  </data>
+  <data name="PackageTabDisabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="PackageTabRemoved" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="PackageFilterAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="PackageFilterApps" xml:space="preserve">
+    <value>Apps</value>
+  </data>
+  <data name="PackageFilterGames" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="PackageFilterPrivileged" xml:space="preserve">
+    <value>Privileged</value>
+  </data>
+  <data name="PackageReloadButton" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="PackageCountFormat" xml:space="preserve">
+    <value>{0} packages</value>
+  </data>
+  <data name="PackageCountFilteredFormat" xml:space="preserve">
+    <value>{0} of {1} packages</value>
+  </data>
+  <data name="ColumnPackage" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ColumnIcon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="PackageLoadIconHint" xml:space="preserve">
+    <value>Load icon and app name from the device</value>
+  </data>
+  <data name="ColumnKind" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ColumnSize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="ColumnInstalled" xml:space="preserve">
+    <value>Installed on</value>
+  </data>
+  <data name="ColumnInstaller" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="ColumnVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="ScanStageListing" xml:space="preserve">
+    <value>Reading package list...</value>
+  </data>
+  <data name="ScanStageLauncher" xml:space="preserve">
+    <value>Detecting app launchers...</value>
+  </data>
+  <data name="ScanStageGames" xml:space="preserve">
+    <value>Detecting games...</value>
+  </data>
+  <data name="ScanStageDetails" xml:space="preserve">
+    <value>Reading package details...</value>
+  </data>
+  <data name="ScanStageSizes" xml:space="preserve">
+    <value>Reading storage sizes...</value>
+  </data>
+  <data name="ScanStageCompletedFormat" xml:space="preserve">
+    <value>Scan complete: {0} packages.</value>
+  </data>
+  <data name="StatusNoDevice" xml:space="preserve">
+    <value>No device connected.</value>
+  </data>
+  <data name="StatusDeviceSelectedFormat" xml:space="preserve">
+    <value>Device {0} selected.</value>
+  </data>
+  <data name="StatusScanErrorFormat" xml:space="preserve">
+    <value>Package scan failed: {0}</value>
+  </data>
+  <data name="StatusIconErrorFormat" xml:space="preserve">
+    <value>Loading the icon failed: {0}</value>
+  </data>
+  <data name="StatusIconLoadingFormat" xml:space="preserve">
+    <value>Loading icons and app names... {0}/{1}</value>
+  </data>
+  <data name="SafetySafe" xml:space="preserve">
+    <value>Safe</value>
+  </data>
+  <data name="SafetyCaution" xml:space="preserve">
+    <value>Caution</value>
+  </data>
+  <data name="SafetyCritical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="ColumnSafety" xml:space="preserve">
+    <value>Safety</value>
+  </data>
+  <data name="ColumnBloat" xml:space="preserve">
+    <value>Bloat</value>
+  </data>
+  <data name="PackageFilterBloatware" xml:space="preserve">
+    <value>Bloatware</value>
+  </data>
+  <data name="ReasonWhitelist" xml:space="preserve">
+    <value>On the protection list (whitelist)</value>
+  </data>
+  <data name="ReasonCritical" xml:space="preserve">
+    <value>Critical system package (locked)</value>
+  </data>
+  <data name="ReasonUserInstalled" xml:space="preserve">
+    <value>Installed by the user</value>
+  </data>
+  <data name="ReasonUserInstalledViaFormat" xml:space="preserve">
+    <value>Installed by the user via {0}</value>
+  </data>
+  <data name="ReasonSystemImage" xml:space="preserve">
+    <value>Part of the system image (vendor/Google)</value>
+  </data>
+  <data name="ReasonOemPreload" xml:space="preserve">
+    <value>Preinstalled third-party app (OEM preload)</value>
+  </data>
+  <data name="ReasonPlayAutoInstall" xml:space="preserve">
+    <value>Pushed via Play Store auto-install</value>
+  </data>
+  <data name="ReasonStrongPatternFormat" xml:space="preserve">
+    <value>Name pattern "{0}" (typical for bloatware)</value>
+  </data>
+  <data name="ReasonWeakPatternFormat" xml:space="preserve">
+    <value>Name pattern "{0}" (weak signal)</value>
+  </data>
+  <data name="ReasonKnownPromo" xml:space="preserve">
+    <value>Known promo/preload app</value>
+  </data>
+  <data name="ReasonSystemInternal" xml:space="preserve">
+    <value>System/configuration package</value>
+  </data>
+  <data name="ActionAbortedNoteFormat" xml:space="preserve">
+    <value>Action could not be executed: {0}</value>
+  </data>
+  <data name="ActionFallbackNote" xml:space="preserve">
+    <value>Removal was refused; the package was disabled for the user instead.</value>
+  </data>
+  <data name="ActionFailedNoteFormat" xml:space="preserve">
+    <value>Command failed: {0}</value>
+  </data>
+  <data name="ActionUnconfirmedNote" xml:space="preserve">
+    <value>The command ran but the new state could not be confirmed.</value>
+  </data>
+  <data name="ActionUnknownNote" xml:space="preserve">
+    <value>The new state could not be read back.</value>
+  </data>
+  <data name="ColumnAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ActionMenuButton" xml:space="preserve">
+    <value>Action ▾</value>
+  </data>
+  <data name="ActionRemove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ActionDisable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="ActionUninstallPermanent" xml:space="preserve">
+    <value>Uninstall (permanent)</value>
+  </data>
+  <data name="ActionUninstallKeepData" xml:space="preserve">
+    <value>Uninstall (keep data)</value>
+  </data>
+  <data name="ActionPurgeData" xml:space="preserve">
+    <value>Delete data</value>
+  </data>
+  <data name="ActionRestore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="ActionEnable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="ActionConfirmTitle" xml:space="preserve">
+    <value>Confirm action</value>
+  </data>
+  <data name="ActionConfirmPackage" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ActionConfirmAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ActionConfirmCommand" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="ActionConfirmUndo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="ActionConfirmNote" xml:space="preserve">
+    <value>The command below is sent to the device exactly as shown. The undo command reverses it at any time.</value>
+  </data>
+  <data name="ActionConfirmYes" xml:space="preserve">
+    <value>Run action</value>
+  </data>
+  <data name="ActionConfirmCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="StatusActionNotPossible" xml:space="preserve">
+    <value>This package cannot be changed (protected, critical, or already in the desired state).</value>
+  </data>
+  <data name="StatusActionRunningFormat" xml:space="preserve">
+    <value>Running action for {0}...</value>
+  </data>
+  <data name="StatusActionDoneFormat" xml:space="preserve">
+    <value>Action completed for {0}.</value>
+  </data>
+  <data name="StatusActionFailedFormat" xml:space="preserve">
+    <value>Action failed: {0}</value>
+  </data>
+  <data name="ActionConfirmDeviceFormat" xml:space="preserve">
+    <value>Target device: {0}</value>
+  </data>
+  <data name="ActionConfirmStorageWarning" xml:space="preserve">
+    <value>Note: removing a system app frees almost no storage - the APK stays in the system partition.</value>
+  </data>
+  <data name="ActionConfirmPlayWarning" xml:space="preserve">
+    <value>Note: this app is only disabled, not uninstalled. A real uninstall could only be undone through the Play Store.</value>
+  </data>
+  <data name="ActionConfirmPermanentWarning" xml:space="preserve">
+    <value>Warning: this uninstall is final. There is no undo command - the app can only be reinstalled through the Play Store.</value>
+  </data>
+  <data name="ActionConfirmPermanentNote" xml:space="preserve">
+    <value>This action cannot be undone by the app. Reinstalling is only possible through the Play Store.</value>
+  </data>
+  <data name="ActionConfirmPurgeWarning" xml:space="preserve">
+    <value>Warning: this deletes the app's remaining data for good. The app disappears from the device and can only be reinstalled through the Play Store.</value>
+  </data>
+  <data name="RollbackNotRestorableNote" xml:space="preserve">
+    <value>Final change - cannot be undone; reinstall from the Play Store.</value>
+  </data>
+  <data name="ActionConfirmCautionWarning" xml:space="preserve">
+    <value>This package is classified as CAUTION. Type its package name below to confirm.</value>
+  </data>
+  <data name="ActionConfirmTypeLabel" xml:space="preserve">
+    <value>Type the package name to confirm</value>
+  </data>
+  <data name="RollbackButton" xml:space="preserve">
+    <value>Undo all changes</value>
+  </data>
+  <data name="RollbackSummaryFormat" xml:space="preserve">
+    <value>{0} changes this session</value>
+  </data>
+  <data name="RollbackNote" xml:space="preserve">
+    <value>Undoes every change recorded above, using the exact undo command from the saved recovery profile (S-06).</value>
+  </data>
+  <data name="RollbackLogButton" xml:space="preserve">
+    <value>Show log</value>
+  </data>
+  <data name="RollbackHideLogButton" xml:space="preserve">
+    <value>Hide log</value>
+  </data>
+  <data name="RollbackOpenFolderButton" xml:space="preserve">
+    <value>Open folder</value>
+  </data>
+  <data name="RollbackLogTitle" xml:space="preserve">
+    <value>Action log</value>
+  </data>
+  <data name="RollbackLogEmptyNote" xml:space="preserve">
+    <value>The log is empty.</value>
+  </data>
+  <data name="RollbackRescueButton" xml:space="preserve">
+    <value>Save rescue file</value>
+  </data>
+  <data name="StatusRollbackRunningFormat" xml:space="preserve">
+    <value>Undoing {0} change(s)...</value>
+  </data>
+  <data name="StatusRollbackDoneFormat" xml:space="preserve">
+    <value>Undo complete: {0} of {1} restored.</value>
+  </data>
+  <data name="StatusRollbackPartialFormat" xml:space="preserve">
+    <value>Undo finished: {0} of {1} restored, {2} not confirmed.</value>
+  </data>
+  <data name="StatusRescueSavedFormat" xml:space="preserve">
+    <value>Rescue file written: {0}</value>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>Package export</value>
+  </data>
+  <data name="ExportButton" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExportCsvOption" xml:space="preserve">
+    <value>Export as CSV</value>
+  </data>
+  <data name="ExportMarkdownOption" xml:space="preserve">
+    <value>Export as Markdown</value>
+  </data>
+  <data name="ExportHtmlOption" xml:space="preserve">
+    <value>Export as HTML</value>
+  </data>
+  <data name="ExportDeviceFormat" xml:space="preserve">
+    <value>Device: {0}</value>
+  </data>
+  <data name="ExportCreatedFormat" xml:space="preserve">
+    <value>Created: {0}</value>
+  </data>
+  <data name="ExportCountFormat" xml:space="preserve">
+    <value>{0} package(s), {1} bloatware candidate(s)</value>
+  </data>
+  <data name="StatusExportSavedFormat" xml:space="preserve">
+    <value>Export written: {0}</value>
+  </data>
+  <data name="StatusExportEmpty" xml:space="preserve">
+    <value>Nothing to export.</value>
+  </data>
+  <data name="SettingsButton" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsSaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SettingsCloseButton" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="SettingsCancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SettingsSavedStatus" xml:space="preserve">
+    <value>Settings saved.</value>
+  </data>
+  <data name="SettingsLanguageLabel" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingsLanguageHint" xml:space="preserve">
+    <value>Only English is available in this version; more languages are prepared.</value>
+  </data>
+  <data name="SettingsWhitelistLabel" xml:space="preserve">
+    <value>Whitelist - protected packages</value>
+  </data>
+  <data name="SettingsWhitelistHint" xml:space="preserve">
+    <value>Packages on this list are never changed. Add or remove entries as you like.</value>
+  </data>
+  <data name="SettingsWhitelistPlaceholder" xml:space="preserve">
+    <value>com.example.app</value>
+  </data>
+  <data name="SettingsWhitelistAddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="SettingsWhitelistRemoveButton" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="SettingsWhitelistResetButton" xml:space="preserve">
+    <value>Restore defaults</value>
+  </data>
+  <data name="SettingsWhitelistEmptyNote" xml:space="preserve">
+    <value>No entries.</value>
+  </data>
+  <data name="SettingsAdbPathLabel" xml:space="preserve">
+    <value>ADB path</value>
+  </data>
+  <data name="SettingsAdbPathHint" xml:space="preserve">
+    <value>Full path to adb, or to its platform-tools folder. Leave empty to detect ADB automatically.</value>
+  </data>
+  <data name="SettingsAdbPathAutomaticButton" xml:space="preserve">
+    <value>Detect automatically</value>
+  </data>
+  <data name="SettingsIconCacheLabel" xml:space="preserve">
+    <value>Icon cache</value>
+  </data>
+  <data name="SettingsIconCacheUsageFormat" xml:space="preserve">
+    <value>{0} file(s), {1}</value>
+  </data>
+  <data name="SettingsIconCacheEmpty" xml:space="preserve">
+    <value>empty</value>
+  </data>
+  <data name="SettingsClearIconCacheButton" xml:space="preserve">
+    <value>Clear icon cache</value>
+  </data>
+  <data name="StatusIconCacheClearedFormat" xml:space="preserve">
+    <value>Icon cache cleared: {0} file(s) removed.</value>
+  </data>
+  <data name="SettingsGameListLabel" xml:space="preserve">
+    <value>Game list</value>
+  </data>
+  <data name="SettingsGameListUsageFormat" xml:space="preserve">
+    <value>{0} game(s) remembered</value>
+  </data>
+  <data name="SettingsGameListEmpty" xml:space="preserve">
+    <value>empty</value>
+  </data>
+  <data name="SettingsClearGameListButton" xml:space="preserve">
+    <value>Reset game list</value>
+  </data>
+  <data name="StatusGameListClearedFormat" xml:space="preserve">
+    <value>Game list reset: {0} entry(s) removed.</value>
+  </data>
+  <data name="SettingsExpertLabel" xml:space="preserve">
+    <value>Expert mode</value>
+  </data>
+  <data name="SettingsExpertOffText" xml:space="preserve">
+    <value>Expert mode is off. Critical packages are locked.</value>
+  </data>
+  <data name="SettingsExpertOnText" xml:space="preserve">
+    <value>Expert mode is on. Critical packages can be changed.</value>
+  </data>
+  <data name="SettingsExpertOpenButton" xml:space="preserve">
+    <value>Enable expert mode...</value>
+  </data>
+  <data name="SettingsExpertStep1Text" xml:space="preserve">
+    <value>Warning: expert mode removes the hard protection for critical packages. Changing them can make the device unstable or unbootable. Continue only if you know exactly what you are doing.</value>
+  </data>
+  <data name="SettingsExpertStep2Text" xml:space="preserve">
+    <value>Second confirmation: please confirm once more that you accept the risk.</value>
+  </data>
+  <data name="SettingsExpertAck" xml:space="preserve">
+    <value>I accept the risk and understand that changing critical packages can damage the device.</value>
+  </data>
+  <data name="SettingsExpertContinueButton" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="SettingsExpertEnableButton" xml:space="preserve">
+    <value>Enable expert mode</value>
+  </data>
+  <data name="SettingsExpertDisableButton" xml:space="preserve">
+    <value>Disable expert mode</value>
+  </data>
+  <data name="ExpertModeBannerText" xml:space="preserve">
+    <value>Expert mode is active: critical packages can be changed. Turn it off in the settings when you are done.</value>
+  </data>
+  <data name="StatusExpertModeEnabled" xml:space="preserve">
+    <value>Expert mode enabled - critical packages can be changed.</value>
+  </data>
+  <data name="StatusExpertModeDisabled" xml:space="preserve">
+    <value>Expert mode disabled - critical packages are locked again.</value>
+  </data>
+  <data name="ActionConfirmExpertWarning" xml:space="preserve">
+    <value>Expert mode: this is a critical package. Changing it can make the device unstable or unbootable.</value>
+  </data>
+  <data name="AdbSourceUserConfigured" xml:space="preserve">
+    <value>Set in settings</value>
+  </data>
+  <data name="HelpButton" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="ThemeToggleTip" xml:space="preserve">
+    <value>Switch light / dark mode</value>
+  </data>
+  <data name="AppSubtitle" xml:space="preserve">
+    <value>Clean up your device, reversibly</value>
+  </data>
+  <data name="ChipAdbReady" xml:space="preserve">
+    <value>ADB ready</value>
+  </data>
+  <data name="ChipAdbMissing" xml:space="preserve">
+    <value>ADB missing</value>
+  </data>
+  <data name="ChipNoDevice" xml:space="preserve">
+    <value>No device</value>
+  </data>
+  <data name="HelpTitle" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="HelpTabUserGuide" xml:space="preserve">
+    <value>User Guide</value>
+  </data>
+  <data name="HelpTabAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="HelpCloseButton" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AboutVersionFormat" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="AboutLicenseText" xml:space="preserve">
+    <value>License: MIT</value>
+  </data>
+  <data name="AboutComponentsLabel" xml:space="preserve">
+    <value>Third-party components</value>
+  </data>
+  <data name="AboutComponentsBody" xml:space="preserve">
+    <value>Avalonia UI, CommunityToolkit.Mvvm, SkiaSharp and Markdown.Avalonia - all MIT licensed.</value>
+  </data>
+  <data name="AboutDisclaimerText" xml:space="preserve">
+    <value>Not affiliated with, endorsed by, or a product of Google LLC. "Android" is a trademark of Google LLC.</value>
+  </data>
+  <data name="AboutWarningText" xml:space="preserve">
+    <value>Use at your own risk: removing the wrong package can break your device (up to a factory reset).</value>
+  </data>
+</root>

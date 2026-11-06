@@ -1,0 +1,178 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AndroidDebloater.App.ViewModels"
+             xmlns:models="using:AndroidDebloater.Core.Models"
+             xmlns:conv="using:AndroidDebloater.App.Converters"
+             xmlns:loc="using:AndroidDebloater.Core.Localization"
+             x:Class="AndroidDebloater.App.Views.PackageTableView"
+             x:DataType="vm:MainViewModel">
+
+    <UserControl.Styles>
+        <!-- Icon-Spalte: nur das Symbol, ohne Rahmen; Klick lädt Icon und Name nach. -->
+        <Style Selector="Button.iconCell">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.iconCell:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#14000000" />
+        </Style>
+        <Style Selector="Button.iconCell:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#22000000" />
+        </Style>
+    </UserControl.Styles>
+
+    <TableView ItemsSource="{Binding FilteredPackages}"
+               CanUserResizeColumns="True"
+               ContextRequested="OnRowContextRequested">
+        <TableView.Columns>
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnIcon}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <Button Classes="iconCell"
+                                Width="32"
+                                Height="32"
+                                Click="OnLoadIconClick"
+                                ToolTip.Tip="{x:Static loc:Strings.PackageLoadIconHint}">
+                            <Grid Width="28" Height="28">
+                                <Border IsVisible="{Binding !HasIcon}"
+                                        CornerRadius="10"
+                                        Background="{Binding PackageName, Converter={x:Static conv:AvatarBrushConverter.Instance}, ConverterParameter=bg}">
+                                    <TextBlock Text="{Binding AvatarText}"
+                                               Foreground="{Binding PackageName, Converter={x:Static conv:AvatarBrushConverter.Instance}}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="13"
+                                               FontWeight="SemiBold" />
+                                </Border>
+                                <Image IsVisible="{Binding HasIcon}"
+                                       Width="28"
+                                       Height="28"
+                                       Stretch="Uniform"
+                                       Source="{Binding IconPng, Converter={x:Static conv:BytesToBitmapConverter.Instance}}" />
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnPackage}" Width="2*">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <StackPanel VerticalAlignment="Center" Spacing="1"
+                                    ToolTip.Tip="{Binding PackageName}">
+                            <TextBlock Text="{Binding DisplayText}"
+                                       FontWeight="SemiBold"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding PackageName}"
+                                       Classes="muted"
+                                       FontSize="11"
+                                       IsVisible="{Binding HasLabel}"
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnKind}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <TextBlock Text="{Binding KindText}" />
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnStatus}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <TextBlock Text="{Binding StatusText}" />
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnSafety}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <Panel ToolTip.Tip="{Binding BloatReasonText}">
+                            <Border Classes="pill safe" IsVisible="{Binding IsSafe}">
+                                <TextBlock Text="{Binding SafetyText}" />
+                            </Border>
+                            <Border Classes="pill caution" IsVisible="{Binding IsCaution}">
+                                <TextBlock Text="{Binding SafetyText}" />
+                            </Border>
+                            <Border Classes="pill crit" IsVisible="{Binding IsCritical}">
+                                <TextBlock Text="{Binding SafetyText}" />
+                            </Border>
+                        </Panel>
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnBloat}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center"
+                                    ToolTip.Tip="{Binding BloatReasonText}">
+                            <ProgressBar Classes="bloat"
+                                         Minimum="0"
+                                         Maximum="100"
+                                         Value="{Binding BloatScore, Mode=OneWay}"
+                                         IsVisible="{Binding IsBloatCandidate}" />
+                            <TextBlock Text="{Binding BloatText}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnSize}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <TextBlock Text="{Binding SizeText}" />
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnVersion}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <TextBlock Text="{Binding VersionText}"
+                                   TextTrimming="CharacterEllipsis" />
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnInstalled}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <TextBlock Text="{Binding InstalledText}" />
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnAction}" Width="Auto">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <!-- Ein Menü pro Zeile (M12): es enthält alle gerade
+                             passenden Aktionen (Deaktivieren/Aktivieren,
+                             Entfernen bzw. endgültiges Entfernen). -->
+                        <Button Content="{x:Static loc:Strings.ActionMenuButton}"
+                                IsVisible="{Binding HasActions}"
+                                Click="OnActionMenuClick" />
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+
+            <TableViewColumn Header="{x:Static loc:Strings.ColumnInstaller}" Width="*">
+                <TableViewColumn.CellTemplate>
+                    <DataTemplate x:DataType="models:AndroidPackage">
+                        <TextBlock Text="{Binding InstallerText}"
+                                   TextTrimming="CharacterEllipsis" />
+                    </DataTemplate>
+                </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+        </TableView.Columns>
+    </TableView>
+</UserControl>
